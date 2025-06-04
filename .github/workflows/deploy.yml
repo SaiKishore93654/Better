@@ -11,7 +11,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
+      - name: Install dependencies
+        run: |
+         pip install ddtrace bugsnag
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
