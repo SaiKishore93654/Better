@@ -29,5 +29,5 @@ jobs:
 
       - name: Tag and push Docker image
         run: |
-          docker tag my-java-app ${{ secrets.DOCKER_USERNAME }}/my-java-app
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-java-app
+          docker tag my-java-app:latest ${{ secrets.DOCKER_USERNAME }}/my-java-app:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/my-java-app:latest
