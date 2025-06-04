@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  EKS_CLUSTER: flask-app
+  EKS_CLUSTER: cluster
   IMAGE_NAME: flask-app
 
 jobs:
