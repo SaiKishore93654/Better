@@ -19,7 +19,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build Docker image
-        run: docker build -t my-java-app .
+        run: docker build --no-cache -t my-java-app .
 
       - name: Log in to DockerHub
         uses: docker/login-action@v2
