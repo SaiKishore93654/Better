@@ -20,6 +20,6 @@ spec:
           valueFrom:
             secretKeyRef:
               name: bugsnag-secret
-              key: api-key
+              key: 4f52edfe22d9df72f7f4656e0ed651c4
         ports:
         - containerPort: 5000
