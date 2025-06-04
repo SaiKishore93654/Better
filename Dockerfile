@@ -1,24 +1,27 @@
-# Use official Python image
-FROM python:3.9-slim
+# ---------- Stage 1: Build the application ----------
+FROM maven:3.8.8-eclipse-temurin-17 as builder
 
-# Set working directory in the container
+# Set working directory
 WORKDIR /app
 
-# Copy requirements file
-COPY requirements.txt .
+# Copy Maven project files
+COPY pom.xml .
+COPY src ./src
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Build the application and create a fat jar
+RUN mvn clean package -DskipTests
 
-# Copy your application code
-COPY app.py .
+# ---------- Stage 2: Run the application ----------
+FROM eclipse-temurin:17-jre
 
-# Set environment variable for Flask
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
+# Create app directory
+WORKDIR /app
 
-# Expose the port your app runs on
-EXPOSE 5000
+# Copy the built jar from the previous stage
+COPY --from=builder /app/target/*.jar app.jar
 
-# Command to run the Flask app
-CMD ["flask", "run"]
+# Expose port used by Spring Boot
+EXPOSE 8080
+
+# Start the Spring Boot app
+ENTRYPOINT ["java", "-jar", "app.jar"]
