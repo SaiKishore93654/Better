@@ -1,27 +1,12 @@
-# ---------- Stage 1: Build the application ----------
-FROM maven:3.8.8-eclipse-temurin-17 as builder
+FROM python:3.9-slim
 
-# Set working directory
 WORKDIR /app
 
-# Copy Maven project files
-COPY pom.xml .
-COPY src ./src
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Build the application and create a fat jar
-RUN mvn clean package -DskipTests
+COPY app.py .
 
-# ---------- Stage 2: Run the application ----------
-FROM eclipse-temurin:17-jre
+EXPOSE 5000
 
-# Create app directory
-WORKDIR /app
-
-# Copy the built jar from the previous stage
-COPY --from=builder /app/target/*.jar app.jar
-
-# Expose port used by Spring Boot
-EXPOSE 8080
-
-# Start the Spring Boot app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["python", "app.py"]
