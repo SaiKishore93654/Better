@@ -5,7 +5,7 @@ from bugsnag.flask import handle_exceptions
 app = Flask(__name__)
 
 bugsnag.configure(
-    api_key="YOUR_BUGSNAG_API_KEY",
+    api_key=4f52edfe22d9df72f7f4656e0ed651c4,
     project_root="/app",
 )
 
